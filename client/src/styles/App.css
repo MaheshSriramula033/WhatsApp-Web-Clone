@@ -1,0 +1,168 @@
+/* Reset full page scroll */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+body {
+  font-family: "Inter", "Segoe UI", sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding: 0;
+}
+
+.container-fluid {
+  background-color: white;
+}
+
+.mobile-chat-view {
+  background-color: #fff;
+}
+
+/* Main app container */
+.app-container {
+  display: flex;
+  height: 100vh;
+  font-family: sans-serif;
+  overflow: hidden;
+}
+
+/* Chat list (left panel) */
+.chat-list {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: #f8f8f8;
+  border-right: 1px solid #ccc;
+}
+
+.chat-item {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.chat-item:hover {
+  background-color: #e0e0e0;
+}
+
+.chat-item.selected {
+  background-color: #0b72ff;
+  color: white;
+}
+
+/* Chat window (right panel) */
+.chat-window {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f1f1f1;
+  overflow: hidden;
+}
+
+/* Header */
+.chat-header {
+  padding: 15px;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Scrollable message container */
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  background-color: #e5ddd5;
+}
+
+/* Message bubbles */
+.message {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 60%;
+  word-wrap: break-word;
+}
+
+.message.sent {
+  background-color: #dcf8c6;
+  align-self: flex-end;
+}
+
+.message.received {
+  background-color: #fff;
+  align-self: flex-start;
+}
+
+/* Chat input */
+.chat-input {
+  display: flex;
+  padding: 10px;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.chat-input button {
+  margin-left: 10px;
+  padding: 10px 15px;
+  background-color: #0b72ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.chat-input button:hover {
+  background-color: #095ac2;
+}
+
+.no-chat {
+  margin: auto;
+  text-align: center;
+  color: gray;
+}
+
+@media (max-width: 768px) {
+  .col-4 {
+    display: block;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100vh;
+  }
+
+  .col-8 {
+    display: none !important;
+  }
+
+  .chat-window {
+    width: 100%;
+    height: 100vh;
+  }
+
+  .chat-list {
+    width: 100%;
+    height: 100vh;
+  }
+
+  /* When chat is selected, show chat window instead of chat list */
+  .mobile-chat-view .col-4 {
+    display: none !important;
+  }
+
+  .mobile-chat-view .col-8 {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100vh;
+  }
+}

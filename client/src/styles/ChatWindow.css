@@ -1,0 +1,38 @@
+.chat-window {
+  background-color: #ece5dd;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat-header {
+  background-color: #f0f2f5;
+  border-bottom: 1px solid #ddd;
+}
+
+.chat-messages {
+  background-color: #ece5dd;
+  padding: 1rem;
+}
+
+.chat-input {
+  background-color: #f0f2f5;
+}
+
+.chat-input input {
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  padding: 0.5rem 1rem;
+}
+
+.chat-input button {
+  border-radius: 20px;
+  padding: 0.5rem 1.5rem;
+  background-color: #0a7cff;
+  color: white;
+  border: none;
+}
+
+.chat-input button:hover {
+  background-color: #006fd3;
+}

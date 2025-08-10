@@ -1,0 +1,41 @@
+.chat-list .list-group-item {
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+.chat-list {
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+}
+
+.chat-list-header {
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.chat-item {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.chat-item:hover {
+  background-color: #f5f5f5;
+}
+
+.chat-item.active {
+  background-color: #e1f0ff;
+  border-left: 4px solid #0a7cff;
+}
+
+.chat-item .chat-name {
+  font-weight: 600;
+}
+
+.chat-item .chat-preview {
+  font-size: 0.85rem;
+  color: #777;
+  margin-top: 2px;
+}
