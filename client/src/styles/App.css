@@ -6,6 +6,7 @@ body {
   padding: 0;
   overflow: hidden;
 }
+
 body {
   font-family: "Inter", "Segoe UI", sans-serif;
   background-color: #f0f2f5;
@@ -68,6 +69,16 @@ body {
   padding: 15px;
   background-color: #fff;
   border-bottom: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chat-header .back-button {
+  display: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #0b72ff;
 }
 
 /* Scrollable message container */
@@ -132,6 +143,7 @@ body {
   color: gray;
 }
 
+/* Mobile styles */
 @media (max-width: 768px) {
   .col-4 {
     display: block;
@@ -164,5 +176,29 @@ body {
     width: 100% !important;
     max-width: 100% !important;
     height: 100vh;
+  }
+
+  /* Mobile header: sticky with back button */
+  .chat-header {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 100;
+    padding: 12px 15px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .chat-header .back-button {
+    display: inline-block;
+  }
+}
+
+/* Hide back button on desktop */
+@media (min-width: 769px) {
+  .chat-header .back-button {
+    display: none;
   }
 }
