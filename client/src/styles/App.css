@@ -71,6 +71,8 @@ body {
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
+  position: sticky;        /* ✅ Keeps it visible */
+  top: 0;
   z-index: 10;
 }
 
@@ -86,8 +88,8 @@ body {
   flex: 1;
   overflow-y: auto;
   padding: 15px;
-  padding-top: 60px; /* match header height */
   background-color: #e5ddd5;
+  /* ✅ Removed padding-top since header is sticky */
 }
 
 /* Message bubbles */
@@ -181,14 +183,9 @@ body {
     height: 100vh;
   }
 
-  /* Adjust header and messages for mobile */
   .chat-header {
     height: 50px;
     padding: 0 10px;
-  }
-
-  .chat-messages {
-    padding-top: 50px; /* match mobile header height */
   }
 
   .chat-header .back-button {

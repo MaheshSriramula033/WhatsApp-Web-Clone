@@ -28,48 +28,47 @@ const App = () => {
   }, []);
 
   // Socket listeners
-useEffect(() => {
-  const socket = socketRef.current;
+  useEffect(() => {
+    const socket = socketRef.current;
 
-  const handleNewMessage = (message) => {
-    setChats((prevChats) =>
-      prevChats.map((chat) =>
-        chat.wa_id === message.wa_id
-          ? { ...chat, messages: [...chat.messages, message] }
-          : chat
-      )
-    );
-  };
-
-  const handleMessageStatusUpdated = ({ messageId, status }) => {
-    setChats((prevChats) =>
-      prevChats.map((chat) => ({
-        ...chat,
-        messages: chat.messages.map((msg) =>
-          msg.id === messageId ? { ...msg, status } : msg
-        ),
-      }))
-    );
-
-    setSelectedChat((prevSelectedChat) => {
-      if (!prevSelectedChat) return prevSelectedChat;
-
-      const updatedMessages = prevSelectedChat.messages.map((msg) =>
-        msg.id === messageId ? { ...msg, status } : msg
+    const handleNewMessage = (message) => {
+      setChats((prevChats) =>
+        prevChats.map((chat) =>
+          chat.wa_id === message.wa_id
+            ? { ...chat, messages: [...chat.messages, message] }
+            : chat
+        )
       );
-      return { ...prevSelectedChat, messages: updatedMessages };
-    });
-  };
+    };
 
-  socket.on("newMessage", handleNewMessage);
-  socket.on("messageStatusUpdated", handleMessageStatusUpdated);
+    const handleMessageStatusUpdated = ({ messageId, status }) => {
+      setChats((prevChats) =>
+        prevChats.map((chat) => ({
+          ...chat,
+          messages: chat.messages.map((msg) =>
+            msg.id === messageId ? { ...msg, status } : msg
+          ),
+        }))
+      );
 
-  return () => {
-    socket.off("newMessage", handleNewMessage);
-    socket.off("messageStatusUpdated", handleMessageStatusUpdated);
-  };
-}, []);
+      setSelectedChat((prevSelectedChat) => {
+        if (!prevSelectedChat) return prevSelectedChat;
 
+        const updatedMessages = prevSelectedChat.messages.map((msg) =>
+          msg.id === messageId ? { ...msg, status } : msg
+        );
+        return { ...prevSelectedChat, messages: updatedMessages };
+      });
+    };
+
+    socket.on("newMessage", handleNewMessage);
+    socket.on("messageStatusUpdated", handleMessageStatusUpdated);
+
+    return () => {
+      socket.off("newMessage", handleNewMessage);
+      socket.off("messageStatusUpdated", handleMessageStatusUpdated);
+    };
+  }, []);
 
   // Responsive handling
   useEffect(() => {
@@ -77,6 +76,25 @@ useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Prevent back navigation from exiting the app
+  useEffect(() => {
+    const handlePopState = () => {
+      // If a chat is open, close it on back
+      if (selectedChat) {
+        setSelectedChat(null);
+        window.history.pushState(null, "", window.location.href);
+      }
+    };
+
+    // Push initial state
+    window.history.pushState(null, "", window.location.href);
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [selectedChat]);
 
   // Add new message to chats
   const updateChatWithNewMessage = (message) => {
@@ -113,14 +131,16 @@ useEffect(() => {
     const latestChat = chats.find((c) => c.wa_id === chat.wa_id);
     if (!latestChat) return;
 
-    // Force re-render by changing reference
     const newSelected = {
       ...latestChat,
       messages: [...latestChat.messages],
     };
     setSelectedChat(newSelected);
 
-    // Emit read status update
+    // Push a new state for back button handling
+    window.history.pushState(null, "", window.location.href);
+
+    // Emit read status
     latestChat.messages.forEach((msg) => {
       if (msg.status !== "read") {
         socketRef.current.emit("updateStatus", {
@@ -171,7 +191,10 @@ useEffect(() => {
     }
   };
 
-  const handleBack = () => setSelectedChat(null);
+  const handleBack = () => {
+    setSelectedChat(null);
+    window.history.pushState(null, "", window.location.href);
+  };
 
   return (
     <div
@@ -180,7 +203,6 @@ useEffect(() => {
       }`}
     >
       <div className="row h-100 flex-nowrap">
-        {/* Chat List */}
         <div
           className={`col-4 border-end p-0 d-flex flex-column ${
             isMobile && selectedChat ? "d-none" : ""
@@ -193,7 +215,6 @@ useEffect(() => {
           />
         </div>
 
-        {/* Chat Window */}
         <div
           className={`col-8 p-0 d-flex flex-column ${
             isMobile && !selectedChat ? "d-none" : isMobile ? "w-100" : ""
