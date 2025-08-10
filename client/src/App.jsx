@@ -5,7 +5,7 @@ import { io } from "socket.io-client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/App.css";
 
-const socket = io("http://localhost:5000");
+const socket = io("https://whatsapp-web-clone-eksp.onrender.com");
 
 const App = () => {
   const [chats, setChats] = useState([]);
@@ -17,7 +17,7 @@ const App = () => {
   useEffect(() => {
     const fetchChats = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/messages/chats");
+        const res = await fetch("https://whatsapp-web-clone-eksp.onrender.com/api/messages/chats");
         const data = await res.json();
         setChats(data);
       } catch (err) {
@@ -157,7 +157,7 @@ useEffect(() => {
 
     try {
       socketRef.current.emit("sendMessage", newMessage);
-      await fetch("http://localhost:5000/api/messages/send", {
+      await fetch("https://whatsapp-web-clone-eksp.onrender.com/api/messages/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

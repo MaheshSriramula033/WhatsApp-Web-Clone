@@ -11,7 +11,7 @@ const ChatLayout = () => {
   useEffect(() => {
     const fetchChats = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/chats");
+        const res = await axios.get("https://whatsapp-web-clone-eksp.onrender.com/api/chats");
         setChats(res.data);
       } catch (error) {
         console.error("Error fetching chats", error);
