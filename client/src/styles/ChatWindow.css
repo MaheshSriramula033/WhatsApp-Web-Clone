@@ -3,13 +3,23 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  position: relative; /* important for absolute positioning inside */
+  position: relative;
+  overflow: hidden;
 }
 
 .chat-header {
   background-color: #f0f2f5;
   border-bottom: 1px solid #ddd;
   padding: 0.75rem 1rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  /* ✅ This keeps it visible while scrolling */
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .chat-messages {
@@ -17,6 +27,9 @@
   padding: 1rem;
   flex: 1;
   overflow-y: auto;
+
+  /* ✅ Important for flex scrolling to work */
+  min-height: 0;
 }
 
 .chat-input {
@@ -24,6 +37,7 @@
   display: flex;
   padding: 0.5rem;
   border-top: 1px solid #ddd;
+  flex-shrink: 0;
 }
 
 .chat-input input {
@@ -46,21 +60,10 @@
   background-color: #006fd3;
 }
 
-/* Mobile fix: keep header visible */
+/* Mobile fix: keep same sticky header */
 @media (max-width: 768px) {
   .chat-header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .chat-messages {
-    padding-top: 75px; /* so first message isn't hidden behind header */
+    height: 50px;
+    padding: 0.5rem 1rem;
   }
 }
