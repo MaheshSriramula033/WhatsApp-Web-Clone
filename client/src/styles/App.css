@@ -45,6 +45,7 @@ html, body {
   background-color: #ece5dd;
 }
 
+/* Fixed Header */
 .chat-header {
   background-color: #f0f2f5;
   border-bottom: 1px solid #ccc;
@@ -53,6 +54,9 @@ html, body {
   align-items: center;
   padding: 0 1rem;
   flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .chat-header .back-button {
@@ -62,15 +66,16 @@ html, body {
   color: #0b72ff;
 }
 
-/* Messages scroll area */
+/* Scrollable Messages */
 .chat-messages {
   flex: 1;
   overflow-y: auto;
   padding: 1rem;
   background-color: #ece5dd;
+  min-height: 0; /* ✅ Prevents flex overflow */
 }
 
-/* Chat Input */
+/* Fixed Input */
 .chat-input {
   display: flex;
   padding: 0.5rem;
