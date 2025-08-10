@@ -7,6 +7,7 @@
   overflow: hidden;
 }
 
+/* Sticky header at the top */
 .chat-header {
   background-color: #f0f2f5;
   border-bottom: 1px solid #ddd;
@@ -15,23 +16,31 @@
   display: flex;
   align-items: center;
   gap: 10px;
-
-  /* ✅ This keeps it visible while scrolling */
   position: sticky;
   top: 0;
   z-index: 10;
 }
 
+/* Back button (only for mobile) */
+.back-button {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #0b72ff;
+  cursor: pointer;
+}
+
+/* Scrollable messages */
 .chat-messages {
   background-color: #ece5dd;
   padding: 1rem;
   flex: 1;
   overflow-y: auto;
-
-  /* ✅ Important for flex scrolling to work */
   min-height: 0;
 }
 
+/* Fixed input at the bottom */
 .chat-input {
   background-color: #f0f2f5;
   display: flex;
@@ -54,16 +63,27 @@
   color: white;
   border: none;
   margin-left: 0.5rem;
+  cursor: pointer;
 }
 
 .chat-input button:hover {
   background-color: #006fd3;
 }
 
-/* Mobile fix: keep same sticky header */
+/* No chat placeholder */
+.no-chat {
+  text-align: center;
+  color: gray;
+}
+
+/* Mobile responsiveness */
 @media (max-width: 768px) {
   .chat-header {
     height: 50px;
     padding: 0.5rem 1rem;
+  }
+
+  .back-button {
+    display: inline;
   }
 }

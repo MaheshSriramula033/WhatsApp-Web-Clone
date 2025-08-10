@@ -18,7 +18,6 @@ const ChatWindow = ({ chat, onSendMessage, onBack }) => {
     }
   }, [chat?.messages]);
 
-  // If no chat is selected, show a placeholder screen
   if (!chat) {
     return (
       <div className="chat-window d-flex flex-column justify-content-center align-items-center">
@@ -31,13 +30,10 @@ const ChatWindow = ({ chat, onSendMessage, onBack }) => {
   }
 
   return (
-    <div className="chat-window d-flex flex-column">
-      <div className="chat-header p-2 border-bottom d-flex align-items-center">
+    <div className="chat-window">
+      <div className="chat-header">
         {onBack && (
-          <button
-            className="btn btn-sm btn-outline-secondary me-2"
-            onClick={onBack}
-          >
+          <button className="back-button me-2" onClick={onBack}>
             ←
           </button>
         )}
@@ -47,24 +43,21 @@ const ChatWindow = ({ chat, onSendMessage, onBack }) => {
         </div>
       </div>
 
-      <div className="chat-messages flex-grow-1 overflow-auto p-3">
+      <div className="chat-messages">
         {chat.messages.map((msg, index) => (
           <MessageBubble key={index} message={msg} />
         ))}
         <div ref={messagesEndRef} />
       </div>
 
-      <form onSubmit={handleSubmit} className="chat-input d-flex p-2 border-top">
+      <form onSubmit={handleSubmit} className="chat-input">
         <input
           type="text"
-          className="form-control me-2"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Type a message"
         />
-        <button type="submit" className="btn btn-primary">
-          Send
-        </button>
+        <button type="submit">Send</button>
       </form>
     </div>
   );
